@@ -4,6 +4,9 @@ buildscript {
         google()
         gradlePluginPortal()
         maven(url = "https://maven.pkg.jetbrains.space/public/p/compose/dev" )
+        maven("https://mirrors.tencent.com/nexus/repository/maven-tencent")
+        maven("https://mirrors.tencent.com/nexus/repository/maven-public")
+        mavenLocal()
     }
 
     dependencies {
@@ -16,7 +19,8 @@ buildscript {
 }
 
 plugins {
-    alias(libs.plugins.binaryCompatibilityValidator)
+//    alias(libs.plugins.binaryCompatibilityValidator)
+    alias(libs.plugins.composeCompiler) apply false
 }
 
 subprojects {
@@ -28,17 +32,17 @@ subprojects {
     }
 }
 
-apiValidation {
-    ignoredProjects.addAll(listOf(
-        /*samples*/"android",
-        /*samples*/"multiplatform",
-        /*samples/multi-modulo*/"app",
-        /*samples/multi-modulo*/"feature-home",
-        /*samples/multi-modulo*/"feature-posts",
-        /*samples/multi-modulo*/"navigation",
-    ))
-    nonPublicMarkers.addAll(listOf(
-        "cafe.adriel.voyager.core.annotation.InternalVoyagerApi",
-        "cafe.adriel.voyager.core.annotation.ExperimentalVoyagerApi"
-    ))
-}
+//apiValidation {
+//    ignoredProjects.addAll(listOf(
+//        /*samples*/"android",
+//        /*samples*/"multiplatform",
+//        /*samples/multi-modulo*/"app",
+//        /*samples/multi-modulo*/"feature-home",
+//        /*samples/multi-modulo*/"feature-posts",
+//        /*samples/multi-modulo*/"navigation",
+//    ))
+//    nonPublicMarkers.addAll(listOf(
+//        "cafe.adriel.voyager.core.annotation.InternalVoyagerApi",
+//        "cafe.adriel.voyager.core.annotation.ExperimentalVoyagerApi"
+//    ))
+//}

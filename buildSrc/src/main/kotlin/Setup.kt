@@ -72,7 +72,7 @@ fun Project.setupModuleForAndroidxCompose(
 fun Project.setupModuleForComposeMultiplatform(
     withKotlinExplicitMode: Boolean = true,
     fullyMultiplatform: Boolean = false,
-    enableWasm: Boolean = true,
+    enableWasm: Boolean = false,
 ) {
     plugins.withType<org.jetbrains.kotlin.gradle.plugin.KotlinBasePluginWrapper> {
         extensions.configure<KotlinMultiplatformExtension> {
@@ -88,30 +88,31 @@ fun Project.setupModuleForComposeMultiplatform(
 
             applyDefaultHierarchyTemplate {
                 common {
-                    if(fullyMultiplatform) {
-                        group("commonWeb") {
-                            withJs()
-                            if(enableWasm) {
-                                withWasm()
-                            }
-                        }
-                    }
+//                    if(fullyMultiplatform) {
+//                        group("commonWeb") {
+//                            withJs()
+//                            if(enableWasm) {
+//                                withWasm()
+//                            }
+//                        }
+//                    }
                     group("jvm") {
                         withCompilations {
-                            it.target.targetName == "desktop" || it.target is KotlinAndroidTarget
+//                            it.target.targetName == "desktop" || it.target is KotlinAndroidTarget
+                            it.target is KotlinAndroidTarget
                         }
                     }
                     group("nonAndroid") {
                         if(fullyMultiplatform) {
-                            withJs()
+//                            withJs()
                             withNative()
-                            if(enableWasm) {
-                                withWasm()
-                            }
+//                            if(enableWasm) {
+//                                withWasm()
+//                            }
                         }
-                        withCompilations {
-                            it.target.targetName == "desktop"
-                        }
+//                        withCompilations {
+//                            it.target.targetName == "desktop"
+//                        }
                     }
                 }
             }
@@ -121,21 +122,22 @@ fun Project.setupModuleForComposeMultiplatform(
                     publishLibraryVariants("release")
                 }
             }
-            jvm("desktop")
+//            jvm("desktop")
 
             if (fullyMultiplatform) {
-                js(IR) {
-                    browser()
-                }
-                if (enableWasm) {
-                    @OptIn(ExperimentalWasmDsl::class)
-                    wasmJs { browser() }
-                }
-                macosX64()
-                macosArm64()
+//                js(IR) {
+//                    browser()
+//                }
+//                if (enableWasm) {
+//                    @OptIn(ExperimentalWasmDsl::class)
+//                    wasmJs { browser() }
+//                }
+//                macosX64()
+//                macosArm64()
                 iosArm64()
                 iosX64()
                 iosSimulatorArm64()
+                ohosArm64()
             }
         }
 

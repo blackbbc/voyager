@@ -3,9 +3,12 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.compose")
     id("com.vanniktech.maven.publish")
+    alias(libs.plugins.composeCompiler)
 }
 
 setupModuleForComposeMultiplatform(fullyMultiplatform = true)
+
+version = findProperty("VERSION_NAME") as String
 
 android {
     namespace = "cafe.adriel.voyager.navigator"

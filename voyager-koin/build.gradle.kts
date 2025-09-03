@@ -3,7 +3,10 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.compose")
     id("com.vanniktech.maven.publish")
+    alias(libs.plugins.composeCompiler)
 }
+
+version = findProperty("VERSION_NAME") as String
 
 setupModuleForComposeMultiplatform(
     fullyMultiplatform = true
@@ -25,6 +28,7 @@ kotlin {
 
             compileOnly(compose.runtime)
             compileOnly(compose.runtimeSaveable)
+            compileOnly(compose.ui)
 
             implementation(libs.coroutines.core)
         }

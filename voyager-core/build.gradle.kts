@@ -4,7 +4,10 @@ plugins {
     id("org.jetbrains.compose")
     id("com.vanniktech.maven.publish")
     id("kotlinx-atomicfu")
+    alias(libs.plugins.composeCompiler)
 }
+
+version = findProperty("VERSION_NAME") as String
 
 setupModuleForComposeMultiplatform(fullyMultiplatform = true)
 
@@ -34,10 +37,10 @@ kotlin {
             implementation(libs.lifecycle.viewModelKtx)
             implementation(libs.lifecycle.viewModelCompose)
         }
-        val commonWebMain by getting {
-            dependencies {
-                implementation(libs.multiplatformUuid)
-            }
-        }
+//        val commonWebMain by getting {
+//            dependencies {
+//                implementation(libs.multiplatformUuid)
+//            }
+//        }
     }
 }

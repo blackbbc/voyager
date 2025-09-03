@@ -2,15 +2,15 @@
 plugin-android = "8.1.1"
 plugin-ktlint = "11.5.1"
 plugin-maven = "0.25.3"
-plugin-multiplatform-compose = "1.6.10"
+plugin-multiplatform-compose = "1.6.1-KBA-006"
 plugin-binaryCompatibilityValidator = "0.13.2"
-plugin-atomicfu = "0.23.1"
+plugin-atomicfu = "0.23.2-KBA-001"
 
-coroutines = "1.8.0-RC2"
-kotlin = "1.9.21"
+coroutines = "1.8.0-KBA-001"
+kotlin = "2.0.21-KBA-005"
 kodein = "7.21.2"
-koin = "4.0.0"
-koin-compose = "4.0.0"
+koin = "4.0.4-KBA-001"
+koin-compose = "4.0.4-KBA-001"
 hilt = "2.51.1"
 leakCanary = "2.14"
 appCompat = "1.6.1"
@@ -25,8 +25,8 @@ rxjava = "3.1.5"
 
 junit = "5.10.0"
 
-androidxKmp-bundle = "1.0.0"
-androidxKmp-lifecycle = "2.8.0"
+androidxKmp-bundle = "1.0.1-KBA-001"
+androidxKmp-lifecycle = "2.8.4-KBA-001"
 
 multiplatformUuid = "0.8.2"
 
@@ -74,4 +74,5 @@ junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref 
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 
 [plugins]
+composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 binaryCompatibilityValidator =  { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "plugin-binaryCompatibilityValidator" }
