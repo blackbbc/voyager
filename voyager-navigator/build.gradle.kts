@@ -20,6 +20,7 @@ kotlin {
             api(projects.voyagerCore)
             compileOnly(compose.runtime)
             compileOnly(compose.runtimeSaveable)
+            compileOnly(compose.ui)
         }
 
         jvmTest.dependencies {
