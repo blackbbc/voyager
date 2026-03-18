@@ -38,14 +38,12 @@ public data class LifecycleEffectOnceScope(
 
 @ExperimentalVoyagerApi
 @Composable
-public fun Screen.LifecycleEffectOnce(onFirstAppear: LifecycleEffectOnceScope.() -> Unit) {
-    val uniqueCompositionKey = rememberSaveable { randomUuid() }
-
+public fun Screen.LifecycleEffectOnce(uniqueCompositionKey: String = rememberSaveable { randomUuid() }, onFirstAppear: LifecycleEffectOnceScope.() -> Unit) {
     val lifecycleEffectStore = remember {
         ScreenLifecycleStore.get(this) { LifecycleEffectStore }
     }
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(uniqueCompositionKey) {
         if (lifecycleEffectStore.hasExecuted(this@LifecycleEffectOnce, uniqueCompositionKey).not()) {
             val scope = lifecycleEffectStore.store(this@LifecycleEffectOnce, uniqueCompositionKey)
             onFirstAppear(scope)
