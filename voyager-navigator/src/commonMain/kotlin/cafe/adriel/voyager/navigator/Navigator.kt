@@ -77,9 +77,7 @@ public fun Navigator(
     require(screens.isNotEmpty()) { "Navigator must have at least one screen" }
     require(key.isNotEmpty()) { "Navigator key can't be empty" }
 
-    CompositionLocalProvider(
-        LocalNavigatorStateHolder providesDefault rememberSaveableStateHolder()
-    ) {
+    ConditionalLocalNavigatorStateHolderCompositionLocalProvider {
         val navigator = rememberNavigator(screens, key, disposeBehavior, LocalNavigator.current)
 
         if (navigator.parent?.disposeBehavior?.disposeNestedNavigators != false) {
@@ -190,3 +188,20 @@ public data class NavigatorDisposeBehavior(
 public fun compositionUniqueId(): String = currentCompositeKeyHash.toString(MaxSupportedRadix)
 
 private val MaxSupportedRadix = 36
+
+// Workaround for CMP-6891: providesDefault + outer CompositionLocal changes breaks inherited
+// value propagation. Only provide LocalNavigatorStateHolder when not already present.
+// https://github.com/adrielcafe/voyager/pull/500
+@Composable
+private fun ConditionalLocalNavigatorStateHolderCompositionLocalProvider(content: @Composable () -> Unit) {
+    val navigatorStateHolder = LocalNavigatorStateHolder.current
+    if (navigatorStateHolder == null) {
+        CompositionLocalProvider(
+            LocalNavigatorStateHolder provides rememberSaveableStateHolder()
+        ) {
+            content()
+        }
+    } else {
+        content()
+    }
+}
